@@ -1,0 +1,90 @@
+# ============================================================
+#  AstraTrack AI - .gitignore
+# ============================================================
+
+# ── Secrets & Environment Variables ──────────────────────────
+.env
+.env.*
+!.env.example
+.envrc
+*.secret
+*.credentials
+*.token
+secrets/
+credentials/
+private/
+
+# ── SSL / TLS Certificates (auto-generated, never commit) ────
+certs/
+*.pem
+*.key
+*.crt
+*.cer
+*.der
+*.p12
+*.pfx
+*.p8
+*.jks
+*.keystore
+
+# ── Python ───────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.whl
+MANIFEST
+
+# ── Virtual Environments ─────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+.virtualenv/
+
+# ── Testing & Coverage ───────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.coveragerc
+coverage.xml
+nosetests.xml
+
+# ── IDE & Editor Files ───────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── Logs ─────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Local database (may contain user profiles and chat history) ───────
+*.db
+*.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm
+
+# ── Node / Frontend (if applicable) ──────────────────────────
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.pnpm-debug.log*

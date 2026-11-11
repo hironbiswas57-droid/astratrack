@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstraTrack AI — Millennium Sky & Astral Trajectory Sentinel</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Top Header Navigation & Live Telemetry Bar -->
+  <header class="header-bar">
+    <div class="logo-area">
+      <div class="logo-icon">✨</div>
+      <div>
+        <div class="logo-title">ASTRATRACK AI</div>
+      </div>
+      <span class="logo-tag">SENTINEL v1.1</span>
+    </div>
+
+    <div class="header-telemetry">
+      <div class="telemetry-item">
+        <span class="status-indicator"></span>
+        <span>ASTRATRAIN: <strong>ONLINE</strong></span>
+      </div>
+      <div class="telemetry-item">
+        <span>POLE STAR:</span>
+        <strong id="hudPoleStar">Polaris (Alpha UMi)</strong>
+      </div>
+      <div class="telemetry-item">
+        <span>OBLIQUITY:</span>
+        <strong id="hudObliquity">23.44°</strong>
+      </div>
+      <div class="telemetry-item">
+        <span>ZODIAC AGE:</span>
+        <strong id="hudZodiacAge">Age of Pisces (♓)</strong>
+      </div>
+      <!-- Client Profile & Skill Memory -->
+      <div class="telemetry-item client-profile-badge" id="clientBadge" title="Click to toggle Novice Guide / Expert Mode">
+        <span>OBSERVER:</span>
+        <strong id="hudClientLevel">Novice 🌟</strong>
+      </div>
+    </div>
+
+    <div class="view-mode-toggle">
+      <button class="novice-toggle-btn active" id="btnToggleNovice" title="Toggle Novice Guidance & Tours">
+        🌟 Novice Guide: ON
+      </button>
+      <button class="view-btn active" data-mode="planetarium" id="btnModePlanetarium">
+        🌌 Celestial Dome
+      </button>
+      <button class="view-btn" data-mode="orbital" id="btnModeOrbital">
+        🛰️ Orbital Sentinel
+      </button>
+      <button class="view-btn" data-mode="stellar3d" id="btnModeStellar3d" title="Show true stellar distances from Earth, compressed logarithmically for visibility">
+        ✧ 3D stellar map
+      </button>
+    </div>
+  </header>
+
+  <section class="editorial-intro" aria-labelledby="introTitle">
+    <div class="intro-wordmark" aria-hidden="true"><span>Astra</span><span>Track</span></div>
+    <div class="editorial-intro-content">
+      <div class="intro-copy">
+        <p class="intro-eyebrow">THE LIVING SKY ATLAS</p>
+        <h1 id="introTitle">A new perspective on the night sky.</h1>
+        <p class="intro-lead">Trace the constellations through deep time, follow stars to their true distances, and explore the worlds that orbit them.</p>
+      </div>
+      <div class="intro-aside">
+        <p>Open a star to explore Gaia astrometry, confirmed exoplanets, and NASA archive media.</p>
+        <a class="intro-link" href="#skyAtlas">Explore the atlas <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Viewport Grid -->
+  <main class="main-viewport" id="skyAtlas">
+    
+    <!-- Left Sidebar: Helio-Phenology, Astral Radar & Cosmos Search -->
+    <aside class="side-panel">
+      <!-- Left Panel Navigation Tabs -->
+      <div class="side-panel-tabs">
+        <button class="side-tab-btn active" id="tabSeasonsBtn" data-target="sectionSeasons">
+          🌾 Seasons
+        </button>
+        <button class="side-tab-btn" id="tabRadarBtn" data-target="sectionRadar">
+          🛰️ Astral Radar
+        </button>
+        <button class="side-tab-btn" id="tabCosmosBtn" data-target="sectionCosmos">
+          🌌 Cosmos & Search
+        </button>
+      </div>
+
+      <!-- Section 1: Helio-Phenology & Seasons -->
+      <div class="panel-section side-tab-content active" id="sectionSeasons">
+        <div class="panel-section-title">
+          <span>🌾 Seasonal Forecasting</span>
+          <span class="transition-tag" id="daysTransitionBadge">--</span>
+        </div>
+
+        <div class="season-hero-card">
+          <div class="season-badge-row">
+            <span class="season-tag" id="seasonHeroTag">🌱 Spring</span>
+          </div>
+          <div class="season-description" id="seasonHeroDesc">
+            Stellar alignments indicate incoming seasonal transitions across latitudes.
+          </div>
+        </div>
+
+        <div style="font-size: 11px; font-family: var(--font-mono); color: var(--accent-cyan); margin-bottom: 8px;">
+          STELLAR HARBINGERS (HELIACAL RISINGS):
+        </div>
+        <div id="stellarRulesList">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Section 2: Astral Trajectories & Satellites -->
+      <div class="panel-section side-tab-content" id="sectionRadar" style="display: none;">
+        <div class="panel-section-title">
+          <span>🛰️ Tracked Comets & Asteroids</span>
+        </div>
+        <div id="trajectoriesList">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Section 3: Cosmos Database & HTML Search Engine -->
+      <div class="panel-section side-tab-content" id="sectionCosmos" style="display: none;">
+        <div class="panel-section-title">
+          <span>🌌 Cosmos Catalog & Open Search</span>
+        </div>
+        <div class="open-data-links" aria-label="Public astronomy data resources">
+          <a href="https://api.nasa.gov/" target="_blank" rel="noreferrer">NASA Open APIs ↗</a>
+          <a href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noreferrer">JPL Horizons ↗</a>
+          <span>Search uses Wikimedia OpenSearch; trajectories are local educational models.</span>
+        </div>
+
+        <!-- Search Bar with HTML Engine Parser -->
+        <div class="cosmos-search-box">
+          <div class="cosmos-input-row">
+            <input 
+              type="text" 
+              id="cosmosSearchInput" 
+              class="cosmos-search-input" 
+              placeholder="Search nebula, exoplanet, M31..." 
+              autocomplete="off"
+            >
+            <button id="cosmosSearchBtn" class="cosmos-search-btn">SEARCH</button>
+          </div>
+          <div class="cosmos-filter-row">
+            <select id="cosmosCategoryFilter" class="cosmos-filter-select">
+              <option value="all">All Categories</option>
+              <option value="galaxy">Galaxies (M31, M87)</option>
+              <option value="nebula">Nebulae (Orion, Crab)</option>
+              <option value="star_cluster">Star Clusters (Pleiades, M13)</option>
+              <option value="star">Anchor Stars (Polaris, Vega)</option>
+              <option value="exoplanet">Exoplanets (TRAPPIST, Proxima)</option>
+              <option value="asteroid">Asteroids & Comets (Apophis)</option>
+              <option value="black_hole">Black Holes (Sgr A*)</option>
+            </select>
+            <label class="cosmos-checkbox-label">
+              <input type="checkbox" id="checkWebSearch" checked> Parse Web HTML
+            </label>
+          </div>
+        </div>
+
+        <!-- Saved Bookmarks Tab Toggle -->
+        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+          <button id="btnViewCatalog" class="side-tab-btn active" style="flex: 1; padding: 4px; font-size: 11px;">
+            Catalog Results (<span id="catalogCountBadge">--</span>)
+          </button>
+          <button id="btnViewBookmarks" class="side-tab-btn" style="flex: 1; padding: 4px; font-size: 11px;">
+            Saved Notebook ★ (<span id="bookmarkCountBadge">0</span>)
+          </button>
+        </div>
+
+        <!-- Search Results List -->
+        <div id="cosmosSearchResults" class="cosmos-results-list">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <!-- Saved Client Bookmarks List (Hidden by default) -->
+        <div id="cosmosBookmarksContainer" class="cosmos-bookmarks-list" style="display: none;">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </aside>
+
+    <!-- Center Stage: 3D Celestial / Orbital Canvas & Timeline Scrubber -->
+    <section class="center-stage">
+      <div class="canvas-container">
+        <canvas id="mainCanvas"></canvas>
+        <div class="map-source-note" id="mapSourceNote">
+          <strong>ASTRA SKY FIELD · CATALOG POSITIONS</strong>
+          Select a named star for Gaia DR3 astrometry, confirmed planets, and NASA image records.
+        </div>
+
+        <!-- Interactive Novice Guided Tour Overlay Card (Hidden until tour activated) -->
+        <div id="tourOverlay" class="tour-overlay-card" style="display: none;">
+          <div class="tour-card-header">
+            <div class="tour-title" id="tourTitle">🧭 Stargazing 101</div>
+            <span class="tour-progress-badge" id="tourProgress">Step 1 of 4</span>
+          </div>
+          <div class="tour-step-title" id="tourStepTitle">Welcome to the Celestial Dome</div>
+          <div class="tour-step-text" id="tourStepText">Explanation text goes here...</div>
+          <div class="tour-step-tip" id="tourStepTip">💡 Practical Stargazing Tip...</div>
+          <div class="tour-nav-controls">
+            <button id="tourPrevBtn" class="tour-btn">◀ Previous</button>
+            <button id="tourCloseBtn" class="tour-close-btn">Exit Tour</button>
+            <button id="tourNextBtn" class="tour-btn">Next Step ▶</button>
+          </div>
+        </div>
+
+        <!-- HUD Coordinate Display -->
+        <div class="hud-overlay">
+          <div>FOV: <strong>360° SPHERE</strong> | CAMERA: <strong>DRAG TO ROTATE, SCROLL TO ZOOM</strong></div>
+          <div>PROPER MOTION VECTORS: <strong style="color: var(--accent-gold);">ACTIVE (10,000-YEAR DRIFT)</strong></div>
+          <div>PRECESSION OF EQUINOXES: <strong style="color: var(--accent-cyan);">25,772-YEAR MILANKOVITCH CYCLE</strong></div>
+        </div>
+
+        <div class="distance-map-note" id="distanceMapNote" hidden>
+          <strong>Earth centered · distances in AU</strong>
+          <span>Log scale for visibility; each star's exact distance is shown on hover.</span>
+        </div>
+
+        <section class="star-inspector" id="starInspector" hidden aria-live="polite" aria-label="Selected star details">
+          <div class="star-inspector-header">
+            <div><span class="inspector-kicker">STAR SYSTEM RECORD</span><h2 id="starInspectorTitle">Select a star</h2></div>
+            <button id="closeStarInspector" type="button" aria-label="Close star details">×</button>
+          </div>
+          <div class="star-inspector-content" id="starInspectorContent"></div>
+        </section>
+
+        <!-- Dynamic HUD Legends -->
+        <div class="hud-legend" id="legendPlanetarium">
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--accent-cyan);"></span>
+            <span>Constellation Filaments</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--accent-cyan); border: 1px dashed;"></span>
+            <span>25,772-Yr Precession Ring</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: #ff4757;"></span>
+            <span>Active North Celestial Pole</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--accent-gold);"></span>
+            <span>Proper Motion Trajectories</span>
+          </div>
+        </div>
+
+        <div class="hud-legend" id="legendOrbital" style="display: none;">
+          <div class="legend-item">
+            <span class="legend-dot" style="background: #ffd166;"></span>
+            <span>Sol (Central Star)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: #00f3ff;"></span>
+            <span>Earth & Satellites</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: #ff4757;"></span>
+            <span>Hazardous Asteroids (NEOs)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: #70a1ff;"></span>
+            <span>Comet Nuclei & Tails</span>
+          </div>
+        </div>
+
+        <div class="hud-legend" id="legendStellar3d" style="display: none;">
+          <div class="legend-item"><span class="legend-dot" style="background:#d9c49a"></span><span>Earth (center)</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background:#b8c5d9"></span><span>Star positions · AU (log radius)</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background:#9ba9be;border:1px dashed"></span><span>Distance shells · AU</span></div>
+        </div>
+      </div>
+
+      <!-- Deep-Time Millennial Timeline Controller Dock -->
+      <footer class="timeline-dock">
+        <div class="timeline-header">
+          <div class="epoch-indicator">
+            <span>EPOCH:</span>
+            <span class="epoch-value" id="epochValue">2026 CE</span>
+            <span class="epoch-context" id="epochContext">• Present Space Age (Polaris North Star)</span>
+          </div>
+
+          <div class="timeline-controls">
+            <button class="timeline-btn" id="playTimelineBtn" title="Play/Pause Precession Animation">▶</button>
+          </div>
+        </div>
+
+        <div class="range-slider-wrapper">
+          <input 
+            type="range" 
+            id="epochSlider" 
+            class="millennial-slider" 
+            min="-15000" 
+            max="15000" 
+            step="25" 
+            value="2026"
+          >
+        </div>
+
+        <div class="quick-epoch-pills">
+          <span style="font-size: 11px; color: var(--text-dim); align-self: center; margin-right: 4px;">EPOCHS:</span>
+          <button class="epoch-pill" data-year="-12000">12,000 BCE (Ice Age / Vega Pole)</button>
+          <button class="epoch-pill" data-year="-2800">2,800 BCE (Giza Pyramids / Thuban Pole)</button>
+          <button class="epoch-pill" data-year="-500">500 BCE (Classical Antiquity)</button>
+          <button class="epoch-pill active" data-year="2026">2026 CE (Present Era / Polaris)</button>
+          <button class="epoch-pill" data-year="4000">4,000 CE (Errai Pole Star)</button>
+          <button class="epoch-pill" data-year="7500">7,500 CE (Alderamin Pole Star)</button>
+          <button class="epoch-pill" data-year="13700">13,700 CE (Vega Pole Climax)</button>
+        </div>
+      </footer>
+    </section>
+
+    <!-- Right Sidebar: Agentic AI Mission Control -->
+    <aside class="side-panel right">
+      <div class="agent-chat-container">
+        <!-- Agent Roster Badges (Chronos, Demeter, Sentinel + Nova) -->
+        <div class="agent-roster">
+          <div class="agent-chip active" id="chipNova" title="Novice Celestial Navigator & Space Mentor">
+            <span>🌟</span> <span>Nova</span>
+          </div>
+          <div class="agent-chip active" title="Deep-Time Astrometry & Precession Specialist">
+            <span>⏳</span> <span>Chronos</span>
+          </div>
+          <div class="agent-chip active" title="Helio-Phenology & Seasonal Specialist">
+            <span>🌾</span> <span>Demeter</span>
+          </div>
+          <div class="agent-chip active" title="Orbital Defense & Satellite Trajectory Specialist">
+            <span>🛰️</span> <span>Sentinel</span>
+          </div>
+        </div>
+
+        <!-- Novice Quick Guided Tours Card -->
+        <div id="noviceWelcomeCard" class="novice-welcome-card">
+          <h4>🌟 Novice Celestial Guide Active</h4>
+          <div style="font-size: 11.5px; color: var(--text-dim); line-height: 1.4;">
+            New to stargazing? Choose an interactive guided tour to explore the cosmos step-by-step:
+          </div>
+          <div class="tour-pill-row">
+            <button class="tour-pill-btn" data-tour="tour_nav_101">
+              <span>🧭 Stargazing 101: Polaris & Ursa Major</span>
+              <span style="color: var(--accent-gold);">Start ▶</span>
+            </button>
+            <button class="tour-pill-btn" data-tour="tour_defense_101">
+              <span>🛰️ Planetary Defense: Asteroid Apophis</span>
+              <span style="color: var(--accent-gold);">Start ▶</span>
+            </button>
+            <button class="tour-pill-btn" data-tour="tour_seasons_101">
+              <span>🌾 Ancient Stargazers: Egyptian Sirius</span>
+              <span style="color: var(--accent-gold);">Start ▶</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="agentic-status" role="status">
+          <span>ASTRA AGENT · 5 STAGES</span>
+          <span>Local semantic memory · astronomy tools · AI synthesis optional</span>
+        </div>
+
+        <!-- Chat Conversation Stream -->
+        <div class="chat-history" id="chatHistory">
+          <div class="chat-bubble assistant">
+            <h3>✨ AstraTrack AI Mission Control Online</h3>
+            <p>I use a five-stage astronomy workflow with four specialist agents and local semantic memory:</p>
+            <ul>
+              <li><strong>🌟 Nova</strong>: Your empathetic guide for beginner stargazers, interactive tours, and plain-English analogies.</li>
+              <li><strong>⏳ Chronos</strong>: Tracks constellation drift and pole star migrations across -15,000 BCE to +15,000 CE.</li>
+              <li><strong>🌾 Demeter</strong>: Predicts seasonal transitions, heliacal risings of Sirius & Pleiades, and agricultural markers.</li>
+              <li><strong>🛰️ Sentinel</strong>: Monitors asteroid/comet trajectories (Apophis, Halley, Bennu) and satellite sensor tracking telemetry.</li>
+            </ul>
+            <p style="margin-top: 8px; font-size: 12px; color: var(--accent-cyan);">
+              Select a guided tour or question below to begin exploring.
+            </p>
+          </div>
+        </div>
+
+        <!-- Suggested Prompt Chips -->
+        <div class="prompt-suggestions" id="suggestionContainer">
+          <button class="suggestion-pill">Guide me: How do I find the North Star and Big Dipper?</button>
+          <button class="suggestion-pill">Simulate Ursa Major in year 15,000 CE when Vega is North Star</button>
+          <button class="suggestion-pill">Track 99942 Apophis trajectory during the 2029 Earth flyby</button>
+        </div>
+
+        <!-- Chat Input Form -->
+        <form class="chat-input-area" id="chatForm">
+          <input 
+            type="text" 
+            class="chat-input" 
+            id="chatInput" 
+            placeholder="Ask Nova, Chronos, Demeter, or Sentinel..." 
+            autocomplete="off"
+          >
+            <button type="submit" class="chat-send-btn">ASK ASTRA</button>
+        </form>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="/js/planetarium.js"></script>
+  <script src="/js/orbital_view.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

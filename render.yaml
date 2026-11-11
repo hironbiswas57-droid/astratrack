@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: astratrack
+    runtime: docker
+    healthCheckPath: /api/health
+    envVars:
+      - key: ASTRATRACK_ENV
+        value: production
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://astratrack.onrender.com
