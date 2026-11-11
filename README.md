@@ -1,6 +1,8 @@
 # AstraTrack AI
 
-AstraTrack is a local astronomy explorer for deep-time sky changes, stellar seasonal markers, and modeled comet and asteroid trajectories. The FastAPI backend provides astronomy data and coordinates three specialist agents: Chronos (precession and stellar motion), Demeter (seasonal predictions), and Sentinel (orbital tracking). The served frontend visualizes those results in a planetarium and orbital view.
+![AstraTrack astronomy explorer preview](assets/astratrack-social-preview.png)
+
+AstraTrack is a student-built astronomy explorer for deep-time sky changes, stellar seasonal markers, and modeled comet and asteroid trajectories. It grew as a first-year BTech learning project, using AI-assisted “vibe coding” alongside hands-on iteration and debugging. The FastAPI backend provides astronomy data and coordinates three specialist agents: Chronos (precession and stellar motion), Demeter (seasonal predictions), and Sentinel (orbital tracking). The served frontend visualizes those results in a planetarium and orbital view.
 
 The computations are educational models, not authoritative ephemerides or operational planetary-defense alerts. Agent responses are rule-based by default; optional Gemini or OpenAI credentials enable LLM-generated synthesis.
 
